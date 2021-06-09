@@ -63,7 +63,6 @@ export const Register = ({ submitButton, getDataFromRegister }) => {
       //     }
       //   );
       // window.location.href = '/confirm';
-      console.log(val);
       getDataFromRegister(valueInput);
       // history.push("/confirm");
       submitButton();

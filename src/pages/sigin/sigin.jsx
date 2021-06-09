@@ -1,44 +1,83 @@
-import React, { useState } from 'react';
-import { Paper, Stepper, Step, StepLabel, Typography } from '@material-ui/core';
-import { Register } from '../../components/register/register';
-import { ConfirmEmail } from '../../components/confirmEmail/confirmEmail';
-import { Link } from 'react-router-dom';
-
-const steps = ['Register','Confirm Email'];
-
-const Cofirmation = () => (
-  <div>
-    Đăng ký thành công!!! <Link to='/' style={{ color: 'blue' }}>Trang chủ</Link>
-  </div>
-)
+import React, { useState } from "react";
+import "./sigin.scss";
 
 const SigIn = () => {
-  const [activeStep, setActiveStep] = useState(0);
-  const [informationUser, setInformationUser] = useState(null);
+  const [user, setUser] = useState({
+    userName: "",
+    password: "",
+  });
 
-  const getDataFromRegister = (information) => {
-    setInformationUser(information);
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(user);
+  };
 
-  const Form = () => activeStep === 0
-      ? <Register getDataFromRegister={getDataFromRegister} submitButton={() => setActiveStep(activeStep+1)} />
-      : <ConfirmEmail data={informationUser} submitButton={() => setActiveStep(activeStep+1)} />
-      
+  const handleChange = (target) => {
+    setUser({
+      ...user,
+      [target.name]: target.value,
+    });
+  };
+
+  const SignInWithGoogle = () => {
+    console.log("sign in with gg");
+  };
+
   return (
-    <>
-      <Paper>
-        <Typography variant='h4' align='center'>Đăng ký</Typography>
-        <Stepper activeStep={activeStep}>
-          {steps.map((step) => (
-            <Step key={step}>
-              <StepLabel>{step}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-        {activeStep === steps.length ? <Cofirmation />: <Form />}
-      </Paper>
-    </>
-  )
-}
+    <div className="container login-container">
+      <div className="row">
+        <div className="col-md-3"></div>
+        <div className="col-md-6 login-form-1">
+          <h3>Login</h3>
+          <form name="formLogin" onSubmit={handleSubmit}>
+            <h3
+              id="trangthai"
+              style={{ color: "rgb(39, 46, 139)", display: "none" }}
+            >
+              Đăng nhập thất bại
+            </h3>
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Tên đăng nhập"
+                name="userName"
+                onChange={(e) => handleChange(e.target)}
+                value={user.userName}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Mật khẩu"
+                name="password"
+                onChange={(e) => handleChange(e.target)}
+                value={user.password}
+              />
+            </div>
 
-export default SigIn
+            <div className="form-group">
+              <input type="submit" className="btnSubmit" value="Đăng nhập" />
+              <input
+                type="button"
+                className="btnSubmit"
+                onClick={SignInWithGoogle}
+                value="GG"
+              />
+            </div>
+
+            <div className="form-group">
+              <a href="register.html" className="ForgetPwd">
+                Đăng ký?
+              </a>
+            </div>
+          </form>
+        </div>
+        <div className="col-md-3"></div>
+      </div>
+    </div>
+  );
+};
+
+export default SigIn;

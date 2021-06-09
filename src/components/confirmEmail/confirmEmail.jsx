@@ -7,10 +7,10 @@ export const ConfirmEmail = ({data, submitButton}) => {
     color: "rgb(39, 46, 139)",
     display: "none"
   })
-
+  console.log(data.val);
   const submitEmail = (e) => {
     e.preventDefault();
-    if (parseInt(dataInput) === data.val) {
+    if (parseInt(dataInput) === parseInt(data.val)) {
       // window.location.href = "/";
       submitButton();
     } else {
