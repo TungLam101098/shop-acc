@@ -1,21 +1,32 @@
 import React from "react";
 import './confirmEmail.scss';
 
-export const ConfirmEmail = ({data, submitButton}) => {
+import { auth, createUserProfileDocument } from '../../firebase/firebase.untils';
+
+export const ConfirmEmail = ({data}) => {
   const [dataInput, SetdataInput] = React.useState("");
   const [styleInput, setStyleInput] = React.useState({
     color: "rgb(39, 46, 139)",
     display: "none"
   })
-  console.log(data.val);
-  const submitEmail = (e) => {
+  console.log(data);
+  const submitEmail = async (e) => {
     e.preventDefault();
     if (parseInt(dataInput) === parseInt(data.val)) {
-      // window.location.href = "/";
-      submitButton();
+      try {
+        const displayName = data.displayName;
+        const { user } = await auth.createUserWithEmailAndPassword(
+          data.email,
+          data.password
+        );
+        createUserProfileDocument(user, { displayName });
+      } catch(err) {
+        console.log(err);
+      }
     } else {
       setStyleInput({...styleInput, display: "block"})
     }
+    
   }
 
   const handleChange = (e) => {

@@ -7,12 +7,11 @@ import { Link } from "react-router-dom";
 export const Register = ({ submitButton, getDataFromRegister }) => {
   var val = Math.floor(1000 + Math.random() * 9000);
   const [valueInput, setValue] = React.useState({
-    userName: "",
+    email: "",
     password: "",
     respassword: "",
-    Name: "",
+    displayName: "",
     phone: "",
-    email: "",
     address: "",
     val: val
   });
@@ -81,11 +80,11 @@ export const Register = ({ submitButton, getDataFromRegister }) => {
             </div>
             <div className="form-group">
               <input
-                type="text"
+                type="email"
                 className="form-control inputform"
-                placeholder="Tên đăng nhập"
-                name="userName"
-                value={valueInput.userName}
+                placeholder="Email"
+                name="email"
+                value={valueInput.email}
                 onChange={handleChange}
                 required
               />
@@ -118,8 +117,8 @@ export const Register = ({ submitButton, getDataFromRegister }) => {
                 type="text"
                 className="form-control inputform"
                 placeholder="Họ và tên"
-                name="Name"
-                value={valueInput.Name}
+                name="displayName"
+                value={valueInput.displayName}
                 onChange={handleChange}
                 required
               />
@@ -131,17 +130,6 @@ export const Register = ({ submitButton, getDataFromRegister }) => {
                 placeholder="SĐT"
                 name="phone"
                 value={valueInput.phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="email"
-                className="form-control inputform"
-                placeholder="Email"
-                name="email"
-                value={valueInput.email}
                 onChange={handleChange}
                 required
               />

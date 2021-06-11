@@ -22,7 +22,7 @@ const SigUp = () => {
 
   const Form = () => activeStep === 0
       ? <Register getDataFromRegister={getDataFromRegister} submitButton={() => setActiveStep(activeStep+1)} />
-      : <ConfirmEmail data={informationUser} submitButton={() => setActiveStep(activeStep+1)} />
+      : <ConfirmEmail data={informationUser} />
       
   return (
     <>

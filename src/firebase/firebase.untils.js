@@ -12,6 +12,14 @@ const config = {
   measurementId: "G-5MNECSMYMP"
 };
 
+const join = (t, a, s) => {
+  function format(m) {
+     let f = new Intl.DateTimeFormat('en', m);
+     return f.format(t);
+  }
+  return a.map(format).join(s);
+}
+
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
@@ -21,7 +29,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
-    const createdAt = new Date();
+    let a = [{day: 'numeric'}, {month: 'short'}, {year: 'numeric'}];
+    const createdAt = join(new Date() , a, '-');
     try {
       await userRef.set({
         displayName,

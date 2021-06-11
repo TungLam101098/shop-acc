@@ -1,15 +1,28 @@
 import React, { useState } from "react";
+
 import "./sigin.scss";
+import { signInWithGoogle } from '../../firebase/firebase.untils';
+import { Link } from "react-router-dom";
+import { auth } from '../../firebase/firebase.untils';
 
 const SigIn = () => {
   const [user, setUser] = useState({
-    userName: "",
+    email: "",
     password: "",
   });
+  const [style, setStyle] = useState("none");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
+    const email = user.email;
+    const password = user.password;
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+    } catch (err) {
+      setStyle('block');
+      console.log(err);
+    }
   };
 
   const handleChange = (target) => {
@@ -17,10 +30,6 @@ const SigIn = () => {
       ...user,
       [target.name]: target.value,
     });
-  };
-
-  const SignInWithGoogle = () => {
-    console.log("sign in with gg");
   };
 
   return (
@@ -32,7 +41,7 @@ const SigIn = () => {
           <form name="formLogin" onSubmit={handleSubmit}>
             <h3
               id="trangthai"
-              style={{ color: "rgb(39, 46, 139)", display: "none" }}
+              style={{ color: "rgb(39, 46, 139)", display: `${style}` }}
             >
               Đăng nhập thất bại
             </h3>
@@ -40,10 +49,10 @@ const SigIn = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Tên đăng nhập"
-                name="userName"
+                placeholder="Email"
+                name="email"
                 onChange={(e) => handleChange(e.target)}
-                value={user.userName}
+                value={user.email}
               />
             </div>
             <div className="form-group">
@@ -62,15 +71,15 @@ const SigIn = () => {
               <input
                 type="button"
                 className="btnSubmit"
-                onClick={SignInWithGoogle}
+                onClick={signInWithGoogle}
                 value="GG"
               />
             </div>
 
             <div className="form-group">
-              <a href="register.html" className="ForgetPwd">
+              <Link to="/register" className="ForgetPwd">
                 Đăng ký?
-              </a>
+              </Link>
             </div>
           </form>
         </div>
