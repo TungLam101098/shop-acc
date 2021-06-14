@@ -1,0 +1,69 @@
+/* css variables */
+:root {
+  --primaryColor: #bd8e2e;
+  --mainWhite: #fff;
+  --offWhite: #f7f7f7;
+  --mainBlack: #222;
+  --mainGrey: #ececec;
+  --darkGrey: #afafaf;
+  --mainTransition: all 0.3s linear;
+  --mainSpacing: 0.25rem;
+  --lightShadow: 2px 5px 3px 0 rgba(0, 0, 0, 0.25);
+  --darkShadow: 4px 10px 5px 0 rgba(0, 0, 0, 0.5);
+}
+/* reset */
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* body */
+body {
+  font-family: "Lato", sans-serif;
+  color: var(--mainBlack);
+  background-image: url("https://tinyurl.com/y25n2ysb");
+  line-height: 1.4;
+  font-size: 1rem;
+}
+
+/************************* flobal styles **********************/
+a {
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.container-fluid {
+  background-color: #dcc89f;
+  padding-bottom: 50px;
+}
+#order-info {
+  padding-left: 2rem;
+}
+.section-order {
+  margin-top: 2rem;
+}
+.order-info-span {
+  font-weight: bold;
+  color: var(--mainBlack);
+}
+.title-wrapper-order {
+  color: var(--mainBlack);
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  text-transform: uppercase;
+}
+.section-center-menu-detail{
+  text-align: left !important;
+}
+.order-img-picture {
+  border-radius: 2rem 2rem 2rem 2rem;
+  width: 290px;
+  height: 420px;
+}
+#order-image {
+  position: absolute;
+  left: 21rem;
+  top: 2rem;
+}

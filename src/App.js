@@ -4,10 +4,13 @@ import Homepage from "./pages/homepage/homepage";
 import SigIn from "./pages/sigin/sigin";
 import SigUp from "./pages/sigup/sigup";
 import { auth, createUserProfileDocument } from './firebase/firebase.untils';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import OrderDate from "./components/orderDate/orderDate";
+import Navbar from "./components/navbar/navbar";
+import { connect } from "react-redux";
+import { setCurrentUser } from './redux/user/user.actions';
 
-function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+function App({setCurrentUser, currentUser }) {
   
   useEffect(() => {
     let unsubscribeFromAuth = null;
@@ -18,7 +21,6 @@ function App() {
           setCurrentUser({
             id: snapShot.id,
             ...snapShot.data(),
-            
           });
         });
       }
@@ -27,23 +29,37 @@ function App() {
     return () => {
       unsubscribeFromAuth()
     }
-  }, [])
-  console.log(currentUser);
-
+  }, [setCurrentUser])
 
   return (
     <Router>
+      <Navbar />
       <Switch>
         <Route exact path="/register" render = {() => currentUser ? (<Redirect to='/' />) : (<SigUp />) } >
         </Route>
         <Route exact path="/sigin" render = {() => currentUser ? (<Redirect to='/' />) : (<SigIn />) } >
         </Route>
-        <Route path="/">
-          <Homepage currentUser={currentUser} />
+        <Route exact path="/">
+          <Homepage />
+        </Route>
+        <Route exact path="/order">
+          <OrderDate />
         </Route>
       </Switch>
     </Router>
   );
 }
 
-export default App;
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+});
+
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+

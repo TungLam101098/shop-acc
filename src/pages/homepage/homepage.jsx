@@ -1,13 +1,9 @@
 import React from "react";
 import "./homepage.scss";
-import Navbar from "../../components/navbar/navbar";
 
-const Homepage = ({currentUser}) => {
+const Homepage = () => {
   return (
     <div>
-      <header>
-        <Navbar currentUser={currentUser} />
-      </header>
       <div className="container">
         <section className="section about">
           {/* about center */}

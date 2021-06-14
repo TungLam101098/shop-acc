@@ -1,7 +1,10 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 import { auth } from "../../firebase/firebase.untils";
+import { selectCurrentUser } from "../../redux/user/user.selector";
 
 import "./navbar.scss";
 
@@ -39,7 +42,7 @@ const Navbar = ({ currentUser }) => {
           <Link to="/" className="nav-links scroll-link">
             Thực đơn
           </Link>
-          <Link to="/" className="nav-links scroll-link">
+          <Link to="/order" className="nav-links scroll-link">
             Đặt bàn
           </Link>
           {currentUser ? (
@@ -71,4 +74,8 @@ const Navbar = ({ currentUser }) => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
+});
+
+export default connect(mapStateToProps)(Navbar);
