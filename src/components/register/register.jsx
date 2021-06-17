@@ -1,8 +1,7 @@
 import React from "react";
 import "./register.scss";
-// import emailjs from "emailjs-com";
+import emailjs from "emailjs-com";
 import { Link } from "react-router-dom";
-// import { useHistory } from "react-router-dom";
 
 export const Register = ({ submitButton, getDataFromRegister }) => {
   var val = Math.floor(1000 + Math.random() * 9000);
@@ -17,7 +16,6 @@ export const Register = ({ submitButton, getDataFromRegister }) => {
   });
   const [styleInput, setStyleInput] = React.useState("");
   
-  // let history = useHistory();
 
   const handleChange = (evt) => {
     const value = evt.target.value;
@@ -46,24 +44,23 @@ export const Register = ({ submitButton, getDataFromRegister }) => {
     if (valueInput.password !== valueInput.respassword) {
       alert("Mật khẩu không khớp!!!");
     } else {
-      // emailjs
-      //   .sendForm(
-      //     "service_dcsbm1i",
-      //     "template_zmnuzjk",
-      //     e.target,
-      //     "user_FAeCTZsbyipDdR6bK5EiJ"
-      //   )
-      //   .then(
-      //     (result) => {
-      //       console.log(result.text);
-      //     },
-      //     (error) => {
-      //       console.log(error.text);
-      //     }
-      //   );
-      // window.location.href = '/confirm';
+      emailjs
+        .sendForm(
+          "service_dcsbm1i",
+          "template_zmnuzjk",
+          e.target,
+          "user_FAeCTZsbyipDdR6bK5EiJ"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
+      window.location.href = '/confirm';
       getDataFromRegister(valueInput);
-      // history.push("/confirm");
       submitButton();
     }
   };

@@ -9,17 +9,19 @@ export const ConfirmEmail = ({data}) => {
     color: "rgb(39, 46, 139)",
     display: "none"
   })
-  console.log(data);
+  
   const submitEmail = async (e) => {
     e.preventDefault();
     if (parseInt(dataInput) === parseInt(data.val)) {
       try {
         const displayName = data.displayName;
+        const phone = data.phone;
+        const address = data.address;
         const { user } = await auth.createUserWithEmailAndPassword(
           data.email,
           data.password
         );
-        createUserProfileDocument(user, { displayName });
+        createUserProfileDocument(user, { displayName, phone, address });
       } catch(err) {
         console.log(err);
       }

@@ -9,6 +9,7 @@ import OrderDate from "./components/orderDate/orderDate";
 import Navbar from "./components/navbar/navbar";
 import { connect } from "react-redux";
 import { setCurrentUser } from './redux/user/user.actions';
+import Account from "./components/account/account";
 
 function App({setCurrentUser, currentUser }) {
   
@@ -44,6 +45,9 @@ function App({setCurrentUser, currentUser }) {
         </Route>
         <Route exact path="/order">
           <OrderDate />
+        </Route>
+        <Route exact path="/account">
+          <Account />
         </Route>
       </Switch>
     </Router>

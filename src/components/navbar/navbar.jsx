@@ -46,7 +46,7 @@ const Navbar = ({ currentUser }) => {
             Đặt bàn
           </Link>
           {currentUser ? (
-            <Link to="/" className="nav-links scroll-link">
+            <Link to="/account" className="nav-links scroll-link">
               {currentUser.displayName}
             </Link>
           ) : (

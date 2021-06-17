@@ -26,22 +26,47 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
+  let phone, address, displayName;
+  if (additionalData === undefined) {
+    phone = address = null;
+    displayName = userAuth.displayName;
+  } else {
+    phone = additionalData.phone;
+    address = additionalData.address;
+    displayName = additionalData.displayName;
+  }
 
   if (!snapShot.exists) {
-    const { displayName, email } = userAuth;
+    const { email } = userAuth;
     let a = [{day: 'numeric'}, {month: 'short'}, {year: 'numeric'}];
     const createdAt = join(new Date() , a, '-');
     try {
       await userRef.set({
         displayName,
-        email,createdAt,
-        ...additionalData
+        email,createdAt, phone, address
       })
     } catch(error) {
       console.log('error creating user', error.message);
     }
   }
   return userRef;
+}
+export const updateUserProfileDocument = async (id, additionalData) => {
+  if (!id) return;
+
+  const userRef = firestore.doc(`users/${id}`);
+
+  const {displayName, phone, address} = additionalData;
+  try {
+    await userRef.update({
+      displayName : displayName,
+      phone: phone,
+      address: address
+    })
+  } catch(error) {
+    console.log('error creating user', error.message);
+  }
+  
 }
 
 firebase.initializeApp(config);
